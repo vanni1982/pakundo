@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Girl Propose Program</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial Black', Gadget, sans-serif; 
+            background-color: #fff0f5; 
+            overflow: hidden;
+        }
+
+        /* FIRST PAGE SCREEN */
+        #page1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            width: 85%;
+            max-width: 350px;
+            text-align: center;
+        }
+        h2 {
+            color: #ff4757;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-family: Arial, sans-serif;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ffa502;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            outline: none;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        /* SECOND PAGE SCREEN (Centering Content) */
+        #page2 {
+            display: none;
+            background-color: #ffe6eb; 
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            animation: zoomIn 0.5s ease-out;
+            gap: 15px; 
+        }
+
+        /* TIMES NEW ROMAN AT BOLD PARA SA PANGALAN */
+        #displayName {
+            display: inline-block;
+            font-family: 'Times New Roman', Times, serif !important; 
+            font-weight: bold !important; 
+            text-transform: none; 
+            font-size: 10vh; 
+            animation: rainbowBlink 1s linear infinite; 
+        }
+
+        /* DISENYO PARA SA TATAWA-TAWANG TEXT */
+        .laugh-text {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 6vh; 
+            animation: rainbowBlink 1s linear infinite;
+        }
+
+        /* KEYFRAMES PARA SA RAINBOW BLINK EFFECT (1 SECOND LOOP) */
+        @keyframes rainbowBlink {
+            0% { color: #ff4757; }     
+            20% { color: #ff7f50; }    
+            40% { color: #ffa502; }    
+            60% { color: #2ecc71; }    
+            80% { color: #3498db; }    
+            100% { color: #9b59b6; }   
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TAGONG AUDIO ELEMENT: Dito manggagaling ang tunog ng PvZ Dolphin -->
+    <audio id="pvzSound" src="tawa.mp3" preload="auto" loop></audio>
+
+    <!-- PAGE 1 -->
+    <div id="page1">
+        <div class="card">
+            <h2>Enter your name:</h2>
+            <input type="text" id="nameInput" placeholder="Type name here...">
+            <button onclick="goToNextPage()">Click</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div id="page2">
+        <div id="displayName"></div>
+        <div class="laugh-text">haha 😂</div>
+    </div>
+
+    <script>
+        function goToNextPage() {
+            const name = document.getElementById('nameInput').value;
+            
+            if (name.trim() !== "") {
+                document.getElementById('displayName').innerText = "Pakundo Si Nomer";
+                
+                // DITO BINAGO: Patutugtugin nito ang tunog ng duwende/dolphin pagkapindot ng button
+                const sound = document.getElementById('pvzSound');
+                sound.play().catch(function(error) {
+                    console.log("Hindi pa pwede i-play ng browser kung walang user interaction.");
+                });
+                
+                document.getElementById('page1').style.display = 'none';
+                
+                const page2 = document.getElementById('page2');
+                page2.style.display = 'flex';
+                page2.classList.add('active'); 
+            } else {
+                alert("Please enter a name first!");
+            }
+        }
+    </script>
+
+</body>
+</html>
